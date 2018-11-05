@@ -2,7 +2,7 @@
 	<div>
 		<div class="container" v-if="info==='kjlogin'">
 			<div class="tabbox">
-				<a href="fastLogin.php" class="cur">
+				<a href="#" class="cur">
 					<font style="vertical-align: inherit;">
 						<font style="vertical-align: inherit;">登录快捷</font>
 					</font>
@@ -74,7 +74,7 @@
 		</div>
 		<div class="container" v-if="info==='zhlogin'">
 			<div class="tabbox">
-				<a href="fastLogin.php">
+				<a href="#">
 					<font style="vertical-align: inherit;">
 						<font style="vertical-align: inherit;">快捷登录</font>
 					</font>
