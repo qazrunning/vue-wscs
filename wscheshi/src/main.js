@@ -12,6 +12,7 @@ import Search from "./containers/Search.vue";
 import Detail from "./containers/Detail.vue";
 import Login from "./containers/Login.vue";
 import Square from "./containers/Square.vue";
+import lianxi from "./containers/lianxi.vue";
 
 //二级路由
 import Club from "./containers/HomeClub.vue";
@@ -50,6 +51,10 @@ const routes = [{
 	{
 		path: '/rank',
 		component: Rank
+	},
+	{
+		path: '/lianxi',
+		component: lianxi
 	}
 	
 ]
