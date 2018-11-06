@@ -172,7 +172,7 @@
 		mounted() {
 			this.loadMore();
 			//使data里面的id等于从另外一个路由传过来的id
-			this.dataIdd = this.$route.params.dataId
+			this.dataIdd = this.$route.query.dataId
 		}
 	}
 </script>

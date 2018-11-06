@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 
 Vue.config.productionTip = false
+
 //引入vue-router
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
@@ -89,7 +90,6 @@ scrollBehavior (to, from, savedPosition) {//单页面跳转时，置顶
 const store = new Vuex.Store({
 	state: {
 		imgsrc:  ["http://bbs.cheshi-img.com/forum/201808/01/10120559cb6c3121a9f67e96862fe312a244ab1.jpg!img.800"],
-		
 		isnavShow:0
 	},
 	getters: {
@@ -99,9 +99,8 @@ const store = new Vuex.Store({
 	}
 })
 
-// 4. 创建和挂载根实例。
 new Vue({
 	router,
 	store,
-	render: h => h(App),
+  render: h => h(App),
 }).$mount('#app')

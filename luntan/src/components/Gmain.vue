@@ -27,7 +27,7 @@
 					</div>
 				</div>
 				<div class="info_txt" >
-					<a @click="goDetail(index)" v-html='`<p><font><font v-text="a.title">
+					<a @click="goDetail(a.id)" v-html='`<p><font><font v-text="a.title">
 						</p><img src="${a.coverimg}"/>`'>
 					</a>
 				</div>
@@ -66,7 +66,7 @@
 							this.dataId = idIndex
 							this.$router.push({
 										name:"detail",
-										params: {
+										query: {
 											dataId: this.dataId
 										}
 									});
