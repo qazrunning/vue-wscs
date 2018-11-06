@@ -30,7 +30,7 @@
 						<font style="vertical-align: inherit;" v-text="nt.navTitle"></font>
 					</font>
 				</a>
-				
+
 			</section>
 			<a class="icon_bbs icon_search" href="#"></a>
 		</header>
@@ -56,18 +56,45 @@
 						navPath: "rank"
 					}
 				],
-				isnavShow:0
+				isnavShow: 0
 			}
 		},
-		methods:{
-			navshow(navShow){
+		methods: {
+			navshow(navShow) {
 				this.isnavShow = navShow;
-				this.$router.push({ name:this.navs[navShow].navPath})
+				this.$router.push({
+					name: this.navs[navShow].navPath
+				});
+
 			},
-			goback(){
-				this.$router.push({name:"forum"})
-				this.isnavShow = 0;
+			goback() {
+				this.$router.push({name: "forum"})
+			},
+			selectss() {
+				var route = this.$route.path;
+				switch(route) {
+					case "/home/forum":
+						this.isnavShow = 0;
+						break;
+					case "/home/club":
+						this.isnavShow = 1;
+						break;
+					case "/home/rank":
+						this.isnavShow = 2;
+						break;
+					default:
+						this.isnavShow = 0;
+				}
 			}
+		},
+		watch:{
+			//监听路由变化，执行相应的数值改变
+			$route() {
+				this.selectss();
+			}
+		},
+		mounted() {
+			this.selectss();
 		}
 	};
 </script>

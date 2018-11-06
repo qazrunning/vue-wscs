@@ -1,9 +1,9 @@
 <template>
 	<div>
-		<Gheader status="detail"/>
+		<Gheader status="detail" />
 		<GdetailMain />
 	</div>
-	
+
 </template>
 
 <script>
@@ -18,4 +18,5 @@
 </script>
 
 <style>
+
 </style>

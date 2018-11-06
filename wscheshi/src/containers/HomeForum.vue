@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<Glunbotu />
-		<Gmain/>
+		<Gmain status="htgc"/>
 	</div>
 </template>
 
