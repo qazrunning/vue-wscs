@@ -11,7 +11,7 @@
 				<span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">搜索</font></font></span>
 			</div>
 			<div class="b_txt" v-if="status==='detail'">
-				<span>女青年也是老司机，我与大唐的美图诱惑</span>
+				<span>{{dataTitle}}</span>
 			</div>
 			<div class="b_txt" v-if="status==='square'">
 				<span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">话题广场</font></font></span>
@@ -35,6 +35,14 @@
 			<a class="icon_bbs icon_search" href="#"></a>
 		</header>
 
+		<section class="sideB">
+			<a class="write_btn" href="">
+				<img src="http://icon.cheshi-img.com/app/bbs/postbbs.png" alt="">
+			</a>
+			<a class="gotop" @click="backTop">
+				<img src="http://icon.cheshi-img.com/app/bbs/gotop.png" alt="">
+			</a>
+		</section>
 	</div>
 
 </template>
@@ -56,7 +64,8 @@
 						navPath: "rank"
 					}
 				],
-				isnavShow: 0
+				isnavShow: 0,
+				dataTitle: ""
 			}
 		},
 		methods: {
@@ -68,7 +77,9 @@
 
 			},
 			goback() {
-				this.$router.push({name: "forum"})
+				this.$router.push({
+					name: "forum"
+				})
 			},
 			selectss() {
 				var route = this.$route.path;
@@ -85,16 +96,29 @@
 					default:
 						this.isnavShow = 0;
 				}
+			},
+			backTop() {
+				let timer = setInterval(function() {
+					let ost = document.body.scrollTop || document.documentElement.scrollTop;
+					let btopspeed = Math.floor(-ost / 5);
+					document.documentElement.scrollTop = document.body.scrollTop = ost + btopspeed;
+					if(ost <= 300) {
+						document.body.scrollTop = 0
+						document.documentElement.scrollTop = 0
+						clearInterval(timer)
+					}
+				}, 30)
+
 			}
 		},
-		watch:{
-			//监听路由变化，执行相应的数值改变
+		watch: { //监听路由变化，执行相应的数值改变
 			$route() {
 				this.selectss();
 			}
 		},
 		mounted() {
 			this.selectss();
+			this.dataTitle = this.$route.query.dataTitle
 		}
 	};
 </script>

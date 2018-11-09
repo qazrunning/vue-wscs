@@ -159,6 +159,7 @@
 						response.data.map((item,index)=>{
 							if(item.id===this.dataIdd){
 								this.newData = item;
+								this.newsTitle = item.title
 								this.textImg = JSON.parse(item.textimg)
 							}
 						})
