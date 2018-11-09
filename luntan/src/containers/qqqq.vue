@@ -35,13 +35,17 @@
 					<div class="fr"><span><i class="icon_bbs icon_bw1"></i><font ><font >&nbsp;2050</font></font></span><span><i class="icon_bbs icon_pl03"></i><font ><font >&nbsp;62</font></font></span></div>
 				</div>
 			</div>
-			<div id="dianwo" v-show="isSShow"><img src="http://img1.cheshi-img.com/misc/gaojiacheng/201806/5b1f84d7a1f7f.gif"/></div>
+			<div id="dianwo" v-show="isSShow"><img src="http://img1.cheshi-img.com/misc/gaojiacheng/201806/5b1f84d7a1f7f.gif" /></div>
 		</section>
 	</div>
 </template>
 
 <script>
 	import axios from "axios";
+	axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'; //全局更改
+	import qs from "qs"; //配合qs模块转化post请求的参数，记得先npm install qs
+//	Vue.prototype.$axios = axios;
+//	Vue.prototype.$qs = qs;
 	import { InfiniteScroll } from 'mint-ui';
 	export default {
 		props: ["status"],
@@ -50,23 +54,27 @@
 				news: [],
 				dataId: 0,
 				page: 1,
-				isSShow:false
-				
+				isSShow: false
+
 			}
 		},
 		methods: {
 			loadMore() {
-				axios
-					.get("http://localhost:4567/users/getDatauu", {
-						params: {
-							page: this.page
-						}
+				
+				let postData = qs.stringify({
+				    page:1,
+				    limit:10
+				});
+				axios({
+						method: 'post',
+						url: 'http://120.78.219.201/m/api/bigshot/',
+						data:postData
 					})
 					.then((response) => {
-						console.log(response.data);
+						console.log(response.data.result);
 						//使用数组合并的方法来添加数据
 						//es6的数组扩展方法
-						this.news = [...this.news, ...response.data];
+						this.news = [...this.news, ...response.data.result];
 					})
 					.catch((error) => {
 						console.log(error);
@@ -87,13 +95,13 @@
 				this.loadMore();
 			},
 			getMoocs() {
-				this.loading=true;
+				this.loading = true;
 				this.isSShow = true;
 				clearTimeout(this.times)
 				this.times = setTimeout(() => {
 					console.log(465446);
 					this.pageplus();
-					this.loading=false;
+					this.loading = false;
 					this.isSShow = false;
 				}, 1000)
 			}
@@ -111,7 +119,8 @@
 		font-size: 0.6rem;
 		text-align: center;
 	}
-	#dianwo img{
+	
+	#dianwo img {
 		height: 0.5rem;
 	}
 </style>
