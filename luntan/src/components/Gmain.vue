@@ -103,7 +103,7 @@
 					this.pageplus();
 					this.loading = false;
 					this.isSShow = false;
-				}, 1000)
+				}, 500)
 			}
 		},
 		created() {

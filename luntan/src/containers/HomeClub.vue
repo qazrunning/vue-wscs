@@ -73,7 +73,8 @@
 				news: [],
 				dataId: 0,
 				page: 1,
-				isSShow: false
+				isSShow: false,
+				path:""
 			}
 		},
 		methods: {
@@ -121,7 +122,7 @@
 					this.pageplus();
 					this.loading = false;
 					this.isSShow = false;
-				}, 1000)
+				}, 500)
 			},
 			isshowClubCar() {
 				this.$store.dispatch("setClubCar", {
@@ -133,10 +134,37 @@
 			this.loadMore();
 		},
 		computed: { //获取仓库信息，用函数接收一个对象。可以当做data里面的数据直接使用
-			ClubCar() {			
+			ClubCar() {
 				return this.$store.getters.getClubCarPath;
 			}
+		},
+		watch: {
+			ClubCar: function(a) {
+				this.news = [];
+				if(a!=undefined){
+					this.path = a;
+				let postData = qs.stringify({
+					page: this.page,
+					limit: 10
+				});
+				axios({
+						method: 'post',
+						url:a,
+						data: postData
+					})
+					.then((response) => {
+						console.log(response.data.result);
+						//使用数组合并的方法来添加数据
+						//es6的数组扩展方法
+						this.news = [...this.news, ...response.data.result];
+					})
+					.catch((error) => {
+						//console.log(error);
+					});
+				};
+			}
 		}
+
 	}
 </script>
 

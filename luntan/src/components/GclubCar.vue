@@ -52,12 +52,21 @@
 						clubname: "摄影大咖",
 						clubPath: "http://120.78.219.201/m/api/bigshot/"
 					}
-				]
+				],
+				Carpath:"http://120.78.219.201/m/api/travel/"
 			}
 		},
 		computed: { //获取仓库信息，用函数接收一个对象。可以当做data里面的数据直接使用
 			ClubCar:function() {
 				return this.$store.getters.getClubCar;
+			}
+		},
+		watch:{
+			ClubCar:function(a,b){
+			//console.log(a.clubPath,b.clubPath)
+			if(b.clubPath!=undefined){
+				this.Carpath = b.clubPath;
+			}
 			}
 		},
 		methods: {
@@ -69,7 +78,8 @@
 			},
 			closeCar() {
 				this.$store.dispatch("setClubCar", {
-					showClubCar: false
+					showClubCar: false,
+					clubPath: this.Carpath
 				})
 			}
 		}
