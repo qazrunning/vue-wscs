@@ -62,7 +62,7 @@
 			}
 		},
 		watch:{
-			ClubCar:function(a,b){
+			ClubCar:function(a,b){//监听vuex仓库Carpath变化之前的属性
 			//console.log(a.clubPath,b.clubPath)
 			if(b.clubPath!=undefined){
 				this.Carpath = b.clubPath;
@@ -70,13 +70,13 @@
 			}
 		},
 		methods: {
-			closeClubCar(path) {
+			closeClubCar(path) {//点击选择Club时，要执行的函数，把相应的Path传给vuex仓库
 				this.$store.dispatch("setClubCar", {
 					showClubCar: false,
 					clubPath: path
 				})
 			},
-			closeCar() {
+			closeCar() {//点击关掉ClubCar时，要执行的函数
 				this.$store.dispatch("setClubCar", {
 					showClubCar: false,
 					clubPath: this.Carpath

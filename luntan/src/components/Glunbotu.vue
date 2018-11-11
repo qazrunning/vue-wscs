@@ -4,7 +4,7 @@
 			<div class="swiper-container home_ban swiper-container-horizontal swiper-container-ios">
 				<div class="swiper-wrapper" id="Gslider">
 					<div class="swiper-slide" v-for="(src,index) in imgSrc" :key="index" :class="{isplayshow:index===isImgShow,isshowGG:index != isImgShow}">
-						<a href="#"><img :src="src"/></a>
+						<a @click="goDetail([src.news_id,src.title])"><img :src="src.coverimg" style="height: 130px;"/></a>
 					</div>
 				</div>
 
@@ -47,13 +47,16 @@
 </template>
 
 <script>
+	import axios from "axios";
+	axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'; //全局更改
+	import qs from "qs"; //配合qs模块转化post请求的参数，记得先npm install qs
+	//	Vue.prototype.$axios = axios;
+	//	Vue.prototype.$qs = qs;
 	import { Swipe, SwipeItem } from 'mint-ui';
 	export default {
 		data() {
 			return {
-				imgSrc: [
-					"http://bbs.cheshi-img.com/forum/bbs/c23ae3aec2f4714f50d6571657f24d5f.jpg", "http://bbs.cheshi-img.com/forum/bbs/af54857cf651bb262142c22073e5c4a0.jpg", "http://bbs.cheshi-img.com/forum/bbs/c3f0130956d2646fddbef0b6881abccd.jpg", "http://bbs.cheshi-img.com/forum/bbs/5062dcc8a7bda9dbce857d1e504f6c8c.jpg", "http://bbs.cheshi-img.com/forum/bbs/9803cefaa14b42ab4d542c1fb7ffcda3.jpg", "http://bbs.cheshi-img.com/forum/bbs/c23ae3aec2f4714f50d6571657f24d5f.jpg"
-				],
+				imgSrc: [],
 				isImgShow:0
 			}
 		},
@@ -62,9 +65,37 @@
 					setInterval(()=>{
 					this.isImgShow += 1; 
 				},3000)
-				
-				
-			}
+			},
+			loadMore() {
+				let postData = qs.stringify({
+					page: 4,
+					limit: 6
+				});
+				axios({
+						method: 'post',
+						url: "http://120.78.219.201/m/api/bigshot/",//获取仓库当前的clubCarPath值，进行页面加载
+						data: postData
+					})
+					.then((response) => {
+						console.log(response.data.result);
+						//使用数组合并的方法来添加数据
+						//es6的数组扩展方法
+						this.imgSrc = response.data.result
+					})
+					.catch((error) => {
+						//console.log(error);
+					});
+			},
+			goDetail([idIndex, dataTitle]) { //配合点击事件，跳转详情页
+				this.dataId = idIndex
+				this.$router.push({
+					name: "detail",
+					query: {
+						dataId: this.dataId,
+						dataTitle: dataTitle
+					}
+				});
+			},
 		},
 		watch:{
 			isImgShow:function(){
@@ -74,7 +105,8 @@
 			}
 		},
 		mounted() {
-			this.plusImg()
+			this.plusImg();
+			this.loadMore()
 		}
 	}
 </script>

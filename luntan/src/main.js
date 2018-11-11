@@ -23,7 +23,6 @@ import Search from "./containers/Search.vue";
 import Detail from "./containers/Detail.vue";
 import Login from "./containers/Login.vue";
 import Square from "./containers/Square.vue";
-import qqqq from "./containers/qqqq.vue";
 
 
 //二级路由
@@ -75,10 +74,6 @@ const routes = [{
 	{
 		path: '/login',
 		component: Login
-	},
-	{
-		path: '/qqqq',
-		component: qqqq
 	}
 
 ]
@@ -115,7 +110,7 @@ const store = new Vuex.Store({
 			context.commit('editClubCar', data)
 		},
 	},
-	getters: {
+	getters: {//编写函数对象，使vue组件可以通过该方法拿到对应的值
 		getClubCar: state => {
 			return state.clubCar;
 		},

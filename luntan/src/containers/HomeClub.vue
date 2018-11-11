@@ -85,7 +85,7 @@
 				});
 				axios({
 						method: 'post',
-						url: this.ClubCar,
+						url: this.ClubCar,//获取仓库当前的clubCarPath值，进行页面加载
 						data: postData
 					})
 					.then((response) => {
@@ -98,17 +98,17 @@
 						//console.log(error);
 					});
 			},
-			goDetail([idIndex, dataTitle]) {
+			goDetail([idIndex, dataTitle]) {//配合点击事件，跳转详情页
 				this.dataId = idIndex
-				this.$router.push({
+				this.$router.push({//路由传参
 					name: "detail",
-					query: {
+					query: {//有区分是使用get或者post
 						dataId: this.dataId,
 						dataTitle: dataTitle
 					}
 				});
 			},
-			pageplus() {
+			pageplus() {//编写方法，获取后端相应的分页值
 				this.page++;
 				this.loadMore();
 			},
@@ -133,18 +133,19 @@
 		mounted() { //声明周期的一种状态
 			this.loadMore();
 		},
-		computed: { //获取仓库信息，用函数接收一个对象。可以当做data里面的数据直接使用
+		computed: { //获取vuex仓库信息，用函数接收一个对象。可以当做data里面的数据直接使用
 			ClubCar() {
 				return this.$store.getters.getClubCarPath;
 			}
 		},
 		watch: {
-			ClubCar: function(a) {
-				this.news = [];
+			ClubCar: function(a) {//监听vuex仓库值的变化，执行相应的加载函数
+				
 				if(a!=undefined){
+					this.news = [];
 					this.path = a;
 				let postData = qs.stringify({
-					page: this.page,
+					page: 1,
 					limit: 10
 				});
 				axios({

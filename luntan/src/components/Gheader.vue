@@ -77,11 +77,10 @@
 
 			},
 			goback() {
-				this.$router.push({
-					name: "forum"
-				})
+				this.$router.history.go(-1);
 			},
 			selectss() {
+				//判断当前二级路由，为了防止刷新页面时回到最初定义的路由
 				var route = this.$route.path;
 				switch(route) {
 					case "/home/forum":
@@ -97,7 +96,7 @@
 						this.isnavShow = 0;
 				}
 			},
-			backTop() {
+			backTop() {//返回顶部
 				let timer = setInterval(function() {
 					let ost = document.body.scrollTop || document.documentElement.scrollTop;
 					let btopspeed = Math.floor(-ost / 5);
