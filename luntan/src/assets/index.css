@@ -1070,7 +1070,7 @@ a {
 	top: 0;
 	background: #fff;
 	z-index: 999;
-	display: none;
+	/*display: none;*/
 }
 
 .close_circle {

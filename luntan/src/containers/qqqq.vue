@@ -21,7 +21,7 @@
 						</a>
 						<p class="timer">
 							<font>
-								<font v-text="a.dataline"></font>
+								<font v-text="a.dateline"></font>
 							</font>
 						</p>
 					</div>
@@ -32,7 +32,7 @@
 					</a>
 				</div>
 				<div class="info_bottom clearfix"><span class="fl"><font ><font v-text="a.club"></font></font></span>
-					<div class="fr"><span><i class="icon_bbs icon_bw1"></i><font ><font >&nbsp;2050</font></font></span><span><i class="icon_bbs icon_pl03"></i><font ><font >&nbsp;62</font></font></span></div>
+					<div class="fr"><span><i class="icon_bbs icon_bw1"></i><font ><font >&nbsp;2050</font></font></span><span><i class="icon_bbs icon_pl03"></i><font ><font v-html="`&nbsp;${a.comments}`"></font></font></span></div>
 				</div>
 			</div>
 			<div id="dianwo" v-show="isSShow"><img src="http://img1.cheshi-img.com/misc/gaojiacheng/201806/5b1f84d7a1f7f.gif" /></div>
@@ -55,29 +55,28 @@
 				dataId: 0,
 				page: 1,
 				isSShow: false
-
 			}
 		},
 		methods: {
 			loadMore() {
 				
 				let postData = qs.stringify({
-				    page:1,
+				    page:this.page,
 				    limit:10
 				});
 				axios({
 						method: 'post',
-						url: 'http://120.78.219.201/m/api/bigshot/',
+						url: 'http://120.78.219.201/m/api/carfriend/',
 						data:postData
 					})
 					.then((response) => {
-						console.log(response.data.result);
+						//console.log(response.data.result);
 						//使用数组合并的方法来添加数据
 						//es6的数组扩展方法
 						this.news = [...this.news, ...response.data.result];
 					})
 					.catch((error) => {
-						console.log(error);
+						//console.log(error);
 					});
 			},
 			goDetail([idIndex, dataTitle]) {
@@ -99,7 +98,7 @@
 				this.isSShow = true;
 				clearTimeout(this.times)
 				this.times = setTimeout(() => {
-					console.log(465446);
+					//console.log(465446);
 					this.pageplus();
 					this.loading = false;
 					this.isSShow = false;

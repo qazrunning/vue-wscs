@@ -13,27 +13,27 @@
 					</a>
 					<div class="fl">
 						<a class="name" href="#">{{newData.author}}</a>
-						<p class="timer">{{newData.dataline}}</p>
+						<p class="timer">{{newData.dateline}}</p>
 					</div>
 					<a class="gz_btn off" href="j#" data-id="1009741">关注TA</a>
 			</div>
 				<div class="info">
-					<p v-html='`${newData.textone}`'></p>
+					<p v-html='`${newData.text}`'></p>
 					 <div class="det_box" v-for="nn in textImg"><div class="imgBox" v-html='`<img src="${nn}" >`'></div>
                     </div>
-                    <p :class="{isTexttwo:newData.texttwo===null}" v-html='`${newData.texttwo}`'></p>
+                    <!--<p :class="{isTexttwo:newData.texttwo===null}" v-html='`${newData.texttwo}`'></p>-->
 				</div>
 				<!--dsfafs-->
 				<div class="zan_box">
 					<a class="zan_btn" href="#" data-pid="13797691" data-type="like">
 						<i class="icon_bbs icon_zan01"></i>
 						<em>赞</em>
-						<span class="num">{{newData.like}}</span>
+						<span class="num">{{newData.like_num}}</span>
 					</a>
 				</div>
 
 				<div class="xg_time clearfix">
-					<span class="fl">于{{newData.dataline}}修改</span>
+					<span class="fl">于{{newData.dateline}}修改</span>
 					<div class="report_b fr">
 						<img class="more" src="http://icon.cheshi-img.com/app/bbs/more.png" alt="">
 						<div class="report_box" style="width: 1rem;">
@@ -142,35 +142,38 @@
 
 <script>
 	import axios from "axios";
+	axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'; //全局更改
+	import qs from "qs"; //配合qs模块转化post请求的参数，记得先npm install qs
+//	Vue.prototype.$axios = axios;
+//	Vue.prototype.$qs = qs;
 	export default {
 		data() {
 			return {
 				dataIdd: 0,
 				newData: {},
-				textImg:[]
+				textImg:[],
+				textArr:[]
 			}
 		},
 		methods: {
 			loadMore() {
+				let dataUrl = 'http://120.78.219.201/m/api/news/'+this.$route.query.dataId+''
 				axios
-					.get("http://localhost:4567/users/getData")
+					.get(dataUrl)
 					.then((response) => {
-						//console.log(response.data);
-						response.data.map((item,index)=>{
-							if(item.id===this.dataIdd){
-								this.newData = item;
-								this.newsTitle = item.title
-								this.textImg = JSON.parse(item.textimg)
-							}
-						})
-						
+					this.newData = response.data.result;
+					//匹配正则，将后端穿过来的单引号字符串转换成双引号，以方便JSON字符串操作
+					let textImgArr = response.data.result.img_list.replace(/'/g, '"'); 
+					//let textArr = response.data.result.text.replace(/'/g, '"');
+					this.textImg =JSON.parse(textImgArr);
+					console.log(dataUrl	);	
 					})
 					.catch((error) => {
-						console.log(error);
+						//console.log(error);
 					});
 			}
 		},
-		mounted() {
+		created() {
 			this.loadMore();
 			//使data里面的id等于从另外一个路由传过来的id
 			this.dataIdd = this.$route.query.dataId
