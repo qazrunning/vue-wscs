@@ -96,18 +96,29 @@ const store = new Vuex.Store({
 		clubCar:{
 			showClubCar:false,
 			clubPath:"http://120.78.219.201/m/api/travel/"
+		},
+		imgshowObj:{
+			isimgshow:false,
+			isimgshowArr:[],
+			imgshowIndex:0
 		}
 	},
 	// 修改状态
 	mutations: {
 		editClubCar(state, data) {
 			state.clubCar = data
+		},
+		editimgshowObj(state, data) {
+			state.imgshowObj = data
 		}
 	},
 	// actions  一般配合 事件@xxx 触发
 	actions: {
 		setClubCar(context, data) {
 			context.commit('editClubCar', data)
+		},
+		setimgshowObj(context, data) {
+			context.commit('editimgshowObj', data)
 		},
 	},
 	getters: {//编写函数对象，使vue组件可以通过该方法拿到对应的值
@@ -116,6 +127,9 @@ const store = new Vuex.Store({
 		},
 		getClubCarPath:state => {
 			return state.clubCar.clubPath;
+		},
+		getimgshowObj:state => {
+			return state.imgshowObj;
 		}
 	}
 })

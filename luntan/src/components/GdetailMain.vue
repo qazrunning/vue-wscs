@@ -19,7 +19,7 @@
 				</div>
 				<div class="info">
 					<p v-html='`${newData.text}`'></p>
-					<div class="det_box" v-for="nn in textImg">
+					<div class="det_box" v-for="(nn,index) in textImg" @click="setImgArr(index)">
 						<div class="imgBox" v-html='`<img src="${nn}" >`'></div>
 					</div>
 					<!--<p :class="{isTexttwo:newData.texttwo===null}" v-html='`${newData.texttwo}`'></p>-->
@@ -120,16 +120,21 @@
 				</a>
 			</div>
 		</section>
+		<Gimgshow />
 	</div>
 </template>
 
 <script>
+	import Gimgshow from "../components/Gimgshow.vue";
 	import axios from "axios";
 	axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'; //全局更改
 	import qs from "qs"; //配合qs模块转化post请求的参数，记得先npm install qs
 	//	Vue.prototype.$axios = axios;
 	//	Vue.prototype.$qs = qs;
 	export default {
+		components: {
+			Gimgshow
+		},
 		data() {
 			return {
 				dataIdd: 0,
@@ -165,7 +170,7 @@
 						data: commentData
 					})
 					.then((response) => {
-						console.log(response.data.result);
+						//console.log(response.data.result);
 						//使用数组合并的方法来添加数据
 						//es6的数组扩展方法
 						this.commentArr = response.data.result;
@@ -176,6 +181,14 @@
 					.catch((error) => {
 						//console.log(error);
 					});
+			},
+			setImgArr(index){
+				this.$store.dispatch("setimgshowObj", {
+					isimgshow:true,
+					imgshowArr:this.textImg,
+					imgshowIndex:index
+					
+				})
 			}
 		},
 		created() {

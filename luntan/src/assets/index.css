@@ -1725,7 +1725,7 @@ a {
 	top: 0;
 	background: #000e17;
 	z-index: 999;
-	display: none;
+	/*display: none;*/
 }
 
 .imgBoxLunbo .swiper-container {

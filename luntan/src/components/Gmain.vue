@@ -115,7 +115,7 @@
 <style>
 	#dianwo {
 		height: 1rem;
-		width: 100px;
+		width: 100%;
 		font-size: 0.6rem;
 		text-align: center;
 	}
