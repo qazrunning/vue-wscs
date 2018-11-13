@@ -16,6 +16,13 @@ Vue.prototype.$http = axios;
 //引入mintui
 import MintUI from 'mint-ui'
 Vue.use(MintUI);
+//引入vue-lazy模块；
+import VueLazyload from 'vue-lazyload'
+Vue.use(VueLazyload, {
+	preLoad: 1.3,
+  loading: 'http://img1.cheshi-img.com/misc/gaojiacheng/201806/5b1f84d7a1f7f.gif',
+  listenEvents: [ 'scroll' ]
+})
 // 1. 定义 (路由) 组件。
 // 可以从其他文件 import 进来
 import Home from "./containers/Home.vue";
@@ -133,6 +140,9 @@ const store = new Vuex.Store({
 		}
 	}
 })
+
+
+
 
 new Vue({
 	router,

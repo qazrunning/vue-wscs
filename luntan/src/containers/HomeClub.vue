@@ -29,7 +29,7 @@
 		<section class="circle_cont clearfix" v-infinite-scroll="getMoocs" infinite-scroll-distance="10" infinite-scroll-disabled="loading">
 			<div class="circle_ullist" v-for="cc in news">
 				<a @click="goDetail([cc.news_id,cc.title])">
-					<div class="info"><img src="" :src="cc.coverimg" style="height: 93px;">
+					<div class="info"><img src="" v-lazy="cc.coverimg" style="height: 93px;">
 						<div class="txt clearfix"><span class="fl"><font ><font v-text="`#${cc.club}`"></font></font></span>
 							<p class="fr"></p>
 						</div>
@@ -162,7 +162,7 @@
 					.catch((error) => {
 						//console.log(error);
 					});
-				};
+				}
 			}
 		}
 
@@ -170,5 +170,16 @@
 </script>
 
 <style>
-
+img[lazy=loaded]{
+   
+  animation:fade 0.3s;
+}
+@keyframes fade {
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
 </style>

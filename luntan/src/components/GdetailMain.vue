@@ -20,7 +20,7 @@
 				<div class="info">
 					<p v-html='`${newData.text}`'></p>
 					<div class="det_box" v-for="(nn,index) in textImg" @click="setImgArr(index)">
-						<div class="imgBox" v-html='`<img src="${nn}" >`'></div>
+						<div class="imgBox"><img  v-lazy="nn"/></div>
 					</div>
 					<!--<p :class="{isTexttwo:newData.texttwo===null}" v-html='`${newData.texttwo}`'></p>-->
 				</div>
